@@ -1,0 +1,46 @@
+EL LIBRO COBRA VIDA — PUBLICAR GRATIS EN GITHUB PAGES
+
+Esta carpeta contiene la versión con múltiples imágenes: seguimiento suavizado y un video diferente para cada objetivo reconocido.
+No requiere ChatGPT, una cuenta de las familias ni un servidor de aplicación.
+
+1. Creá una cuenta gratuita en https://github.com si todavía no tenés una.
+2. Entrá a https://github.com/new y creá el repositorio libro-animado.
+   Elegí Public y marcá Add a README file. Creá el repositorio.
+3. Descomprimí este ZIP en tu computadora.
+4. En GitHub: Add file > Upload files.
+   Arrastrá el CONTENIDO de la carpeta descomprimida: los archivos y las
+   carpetas assets y vendor. No subas el ZIP ni la carpeta contenedora.
+   index.html debe quedar al mismo nivel que assets y vendor.
+   Confirmá la carga en la rama main con Commit changes.
+5. En el repositorio: Settings > Pages.
+   Source: Deploy from a branch.
+   Branch: main. Folder: /(root). Tocá Save.
+6. Cuando termine la publicación, Pages mostrará el enlace:
+   https://TU-USUARIO.github.io/libro-animado/
+7. Abrí ese enlace en tu celular, permití la cámara y enfocá el dibujo.
+   Ese será el enlace para compartir con las familias.
+
+No abras index.html haciendo doble clic para probar la cámara.
+La prueba debe abrirse desde el enlace HTTPS publicado.
+
+ARCHIVOS
+index.html: página de inicio.
+app.js, stability.js y style.css: comportamiento, estabilización y presentación.
+assets/targets.mind: mapa compilado con todas las imágenes que reconoce la cámara.
+assets/limericksarg: imágenes JPG y videos MP4 asociados por el mismo nombre base.
+targets.js: nombres de los objetivos, en el mismo orden usado al compilar targets.mind.
+vendor: bibliotecas incluidas, con sus licencias.
+.nojekyll: permite publicar los archivos directamente.
+
+Si no se ve .nojekyll en tu computadora, los archivos de esta prueba
+igualmente usan nombres compatibles con la publicación desde main.
+
+Para sumar páginas, agregá cada par JPG/MP4 con el mismo nombre, recompilá juntos
+todos los JPG en targets.mind y agregá los nombres a targets.js respetando el
+mismo orden de compilación.
+
+Documentación oficial:
+https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+
+ACTUALIZAR UNA PUBLICACIÓN EXISTENTE
+Si ya subiste la versión anterior a GitHub, cargá index.html, app.js y el nuevo stability.js en la raíz del mismo repositorio. No hace falta cambiar la configuración de Pages. Recargá la página para cargar la revisión 2.
