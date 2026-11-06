@@ -2,7 +2,8 @@ import { PoseSmoother } from './stability.js';
 import { displayName, targetNames } from './targets.js';
 
 const $ = id => document.getElementById(id);
-const routeName = decodeURIComponent(location.pathname).split('/').filter(Boolean).at(-1) || '';
+const configuredName = document.querySelector('meta[name="limerick"]')?.content || '';
+const routeName = configuredName || decodeURIComponent(location.pathname).split('/').filter(Boolean).at(-1) || '';
 const targetName = targetNames.includes(routeName) ? routeName : null;
 const assetUrl = extension => new URL(`assets/limericksarg/${targetName}.${extension}`, import.meta.url).href;
 const targetUrl = targetName ? new URL('targets.mind', location.href).href : '';
