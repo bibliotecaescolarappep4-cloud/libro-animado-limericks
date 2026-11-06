@@ -1,0 +1,35 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Compilador local de targets</title>
+<pre id="status">Iniciando…</pre>
+<script type="module">
+  import { a as Compiler } from '../vendor/controller-mGt1s8dJ.js';
+
+  const names = PARAM_NAMES;
+  const status = document.querySelector('#status');
+
+  const loadImage = (src) => new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = src;
+  });
+
+  window.addEventListener('error', event => fetch('/log', {method: 'POST', body: event.error?.stack || event.message}));
+  window.addEventListener('unhandledrejection', event => fetch('/log', {method: 'POST', body: event.reason?.stack || String(event.reason)}));
+
+  for (const [index, name] of names.entries()) {
+    status.textContent = `${index + 1}/${names.length}: ${name}`;
+    const image = await loadImage(`../assets/limericksarg/${name}.jpg`);
+    const compiler = new Compiler();
+    await compiler.compileImageTargets([image], () => {});
+    const response = await fetch('/save-target', {
+      method: 'POST',
+      headers: {'X-Limerick-Name': name},
+      body: compiler.exportData()
+    });
+    if (!response.ok) throw new Error(`No se pudo guardar ${name}`);
+  }
+  status.textContent = 'LISTO';
+  document.title = 'LISTO';
+</script>

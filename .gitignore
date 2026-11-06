@@ -1,0 +1,5 @@
+# Compiladores descargados por ChatGPT
+.compiler*
+
+# Dependencias de Node
+node_modules

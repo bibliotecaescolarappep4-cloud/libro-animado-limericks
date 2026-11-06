@@ -14,13 +14,13 @@
 </head>
 
 <body>
-    <main id="home">
+    <main id="home"><div id="experience">
         <header class="top"><a class="brand" href="./" aria-label="Inicio"><svg viewBox="0 0 32 32" aria-hidden="true">
                     <path d="M16 8C11 4 6 5 3 6v20c5-2 9-1 13 2 4-3 8-4 13-2V6c-3-1-8-2-13 2Zm0 0v20" />
                 </svg><span>BIBLIOTECA ESCOLAR EP 4 - Un viaje al infinito</span></a><span class="badge">LIMERICKS</span></header>
         <section class="hero">
             <div class="intro"><span class="eyebrow">HISTORIAS HECHAS POR LOS CHICOS</span>
-                <h1>El libro<br>cobra <em>vida.</em></h1>
+                <h1>El libro<br>cobra <em>vida.</em></h1><p class="eyebrow" id="limerick-name">Limerick</p>
                 <p class="lead">Un dibujo en el papel.<br>Una historia que empieza a moverse.</p>
                 <p class="explain">Activá la cámara y apuntá a una imagen del libro. El video correspondiente aparecerá sobre la hoja.
                 </p>
@@ -32,7 +32,7 @@
                 <div id="error" class="error" role="alert" hidden></div>
             </div>
             <figure class="drawing"><span class="paper-label">UNA DE LAS IMÁGENES DEL LIBRO</span><img
-                    src="assets/limericksarg/familia-ballena.jpg"
+                    id="target-preview" src="assets/limericksarg/argentina.jpg"
                     alt="Ilustración del libro de limericks." width="785" height="589">
                 <figcaption><span class="caption-mark" aria-hidden="true">AR</span><span>Buscá las imágenes en tu
                         libro.<br><small>Cada una tiene su propio video.</small></span></figcaption>
@@ -58,8 +58,9 @@
                 </div>
             </article>
         </section>
-        <footer><span>MUCHAS PÁGINAS, MUCHAS HISTORIAS.</span></footer>
+        <footer><span>MUCHAS PÁGINAS, MUCHAS HISTORIAS.</span></footer></div>
     </main>
+    <nav id="gallery" class="gallery" aria-label="Limericks" hidden></nav>
     <section id="ar" aria-label="Cámara de realidad aumentada" hidden>
         <div id="camera"></div>
         <div class="ar-top"><span class="ar-label">EL LIBRO COBRA VIDA <b>AR</b></span><button id="exit" class="glass"
@@ -73,7 +74,7 @@
             <p class="ar-tip">Si no aparece, alej&shy;á un poco el celular y evitá los reflejos.</p>
         </div>
     </section>
-    <script type="module" src="app.js?v=3"></script>
+    <script type="module" src="single-app.js?v=4"></script>
 </body>
 
 </html>

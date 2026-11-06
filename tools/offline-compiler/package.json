@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "mind-ar": "1.2.5"
+  },
+  "overrides": {
+    "canvas": "npm:@napi-rs/canvas@0.1.80"
+  }
+}

@@ -1,0 +1,11 @@
+Error: Failed to compile fragment shader.
+    at qw (http://127.0.0.1:8765/vendor/controller-mGt1s8dJ.js:37077:41)
+    at GA (http://127.0.0.1:8765/vendor/controller-mGt1s8dJ.js:38911:27)
+    at http://127.0.0.1:8765/vendor/controller-mGt1s8dJ.js:40655:114
+    at Cu.getAndSaveBinary (http://127.0.0.1:8765/vendor/controller-mGt1s8dJ.js:40673:60)
+    at Cu.runWebGLProgram (http://127.0.0.1:8765/vendor/controller-mGt1s8dJ.js:40655:88)
+    at Object.v4 [as kernelFunc] (http://127.0.0.1:8765/vendor/controller-mGt1s8dJ.js:53394:12)
+    at a (http://127.0.0.1:8765/vendor/controller-mGt1s8dJ.js:2597:15)
+    at http://127.0.0.1:8765/vendor/controller-mGt1s8dJ.js:2625:67
+    at mr.scopedRun (http://127.0.0.1:8765/vendor/controller-mGt1s8dJ.js:2515:17)
+    at mr.runKernelFunc (http://127.0.0.1:8765/vendor/controller-mGt1s8dJ.js:2620:17)
