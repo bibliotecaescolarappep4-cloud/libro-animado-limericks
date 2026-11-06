@@ -23,10 +23,22 @@ function configurePage() {
   }
   $('experience').hidden = true;
   $('gallery').hidden = false;
-  $('gallery').replaceChildren(...targetNames.map(name => {
-    const link = document.createElement('a');
-    link.href = `${name}/`; link.textContent = displayName(name); return link;
-  }));
+  const table = document.createElement('table');
+  const caption = document.createElement('caption');
+  caption.textContent = 'Elegí un limerick';
+  table.appendChild(caption);
+  const body = table.createTBody();
+  for (let rowIndex = 0; rowIndex < 5; rowIndex++) {
+    const row = body.insertRow();
+    for (let columnIndex = 0; columnIndex < 5; columnIndex++) {
+      const name = targetNames[rowIndex * 5 + columnIndex];
+      const cell = row.insertCell();
+      const link = document.createElement('a');
+      link.href = `${name}/`; link.textContent = displayName(name);
+      cell.appendChild(link);
+    }
+  }
+  $('gallery').replaceChildren(table);
 }
 
 async function playOverlay() {
