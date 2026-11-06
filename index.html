@@ -28,6 +28,7 @@
                         <path d="M8 5 9 3h6l1 2h4v15H4V5Z" />
                         <circle cx="12" cy="12" r="4" />
                     </svg>Activar cámara<span aria-hidden="true">↗</span></button>
+                <button id="watch-video" class="secondary" type="button">Ver video sin realidad aumentada</button>
                 <p class="permission">Te pediremos permiso para usar la cámara.</p>
                 <div id="error" class="error" role="alert" hidden></div>
             </div>
@@ -74,7 +75,11 @@
             <p class="ar-tip">Si no aparece, alej&shy;á un poco el celular y evitá los reflejos.</p>
         </div>
     </section>
-    <script type="module" src="single-app.js?v=6"></script>
+    <dialog id="video-dialog" class="video-dialog">
+        <div class="video-dialog-top"><strong id="video-title">Limerick</strong><button id="close-video" class="glass" type="button">Cerrar ×</button></div>
+        <video id="standalone-video" controls playsinline preload="metadata"></video>
+    </dialog>
+    <script type="module" src="single-app.js?v=7"></script>
 </body>
 
 </html>

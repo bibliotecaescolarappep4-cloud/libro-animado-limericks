@@ -18,6 +18,8 @@ function configurePage() {
     $('limerick-name').textContent = title;
     $('target-preview').src = assetUrl('jpg');
     $('target-preview').alt = `Ilustración del limerick ${title}.`;
+    $('video-title').textContent = title;
+    $('standalone-video').src = assetUrl('mp4');
     $('gallery').hidden = true;
     return;
   }
@@ -28,11 +30,12 @@ function configurePage() {
   caption.textContent = 'Elegí un limerick';
   table.appendChild(caption);
   const body = table.createTBody();
-  for (let rowIndex = 0; rowIndex < 5; rowIndex++) {
+  for (let rowIndex = 0; rowIndex < Math.ceil(targetNames.length / 2); rowIndex++) {
     const row = body.insertRow();
-    for (let columnIndex = 0; columnIndex < 5; columnIndex++) {
-      const name = targetNames[rowIndex * 5 + columnIndex];
+    for (let columnIndex = 0; columnIndex < 2; columnIndex++) {
+      const name = targetNames[rowIndex * 2 + columnIndex];
       const cell = row.insertCell();
+      if (!name) { cell.className = 'empty'; continue; }
       const link = document.createElement('a');
       link.href = `${name}/`; link.textContent = displayName(name);
       cell.appendChild(link);
@@ -85,7 +88,7 @@ $('start').addEventListener('click', async () => {
     ar = new MindARThree({container:$('camera'), imageTargetSrc:targetUrl, maxTrack:1, uiLoading:'no', uiScanning:'no', uiError:'no', filterMinCF:0.0006, filterBeta:100, warmupTolerance:8, missTolerance:10});
     ar.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     const video = document.createElement('video');
-    video.src = assetUrl('mp4'); video.preload = 'metadata'; video.playsInline = true; video.muted = true; video.loop = true;
+    video.src = assetUrl('mp4'); video.preload = 'metadata'; video.playsInline = true; video.muted = true; video.loop = false;
     video.setAttribute('webkit-playsinline', ''); Object.assign(video.style, {position:'fixed', width:'1px', height:'1px', opacity:'0', pointerEvents:'none'}); document.body.appendChild(video);
     const texture = new THREE.VideoTexture(video); texture.colorSpace = THREE.SRGBColorSpace;
     const geometry = new THREE.PlaneGeometry(1, 1);
@@ -95,6 +98,7 @@ $('start').addEventListener('click', async () => {
     target.anchor = ar.addAnchor(0);
     target.anchor.onTargetFound = () => { target.poseSmoother.reset(); video.muted = !sound; $('guide').style.opacity = '0'; status(`¡Encontramos “${displayName(targetName)}”! La historia está en marcha.`); playOverlay(); };
     target.anchor.onTargetLost = () => { displayedGroup.visible = false; target.poseSmoother.reset(); video.pause(); $('resume').hidden = true; $('guide').style.opacity = '1'; status('Volvé a enfocar la imagen del libro para continuar.'); };
+    video.addEventListener('ended', () => { $('resume').hidden = true; status('El video terminó. Tocá «Desde el principio» para volver a verlo.'); });
     await ar.start(); active = true;
     if (ar.controller.markerDimensions.length !== 1) throw new Error('El mapa debe contener una sola imagen');
     const [width, height] = ar.controller.markerDimensions[0]; target.displayedGroup.children[0].scale.y = height / width;
@@ -114,6 +118,18 @@ $('exit').addEventListener('click', () => {cleanup(); $('start').focus();});
 $('resume').addEventListener('click', playOverlay);
 $('replay').addEventListener('click', () => { if (target) { target.video.currentTime = 0; playOverlay(); } });
 $('sound').addEventListener('click', async () => { sound = !sound; if (target) target.video.muted = !sound; $('sound').setAttribute('aria-pressed', String(sound)); $('sound').textContent = sound ? 'Silenciar' : 'Activar sonido'; await playOverlay(); });
+$('watch-video').addEventListener('click', () => {
+  const dialog = $('video-dialog');
+  if (typeof dialog.showModal === 'function') dialog.showModal(); else dialog.setAttribute('open', '');
+  $('standalone-video').play().catch(() => {});
+});
+function closeStandaloneVideo() {
+  const video = $('standalone-video'); video.pause(); video.currentTime = 0;
+  const dialog = $('video-dialog'); if (typeof dialog.close === 'function') dialog.close(); else dialog.removeAttribute('open');
+}
+$('close-video').addEventListener('click', closeStandaloneVideo);
+$('video-dialog').addEventListener('cancel', event => { event.preventDefault(); closeStandaloneVideo(); });
+$('video-dialog').addEventListener('click', event => { if (event.target === $('video-dialog')) closeStandaloneVideo(); });
 document.addEventListener('visibilitychange', () => {if(document.hidden && active) cleanup();});
 window.addEventListener('pagehide', () => {if(ar) cleanup();});
 
