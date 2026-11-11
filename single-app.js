@@ -5,21 +5,27 @@ const $ = id => document.getElementById(id);
 const configuredName = document.querySelector('meta[name="limerick"]')?.content || '';
 const routeName = configuredName || decodeURIComponent(location.pathname).split('/').filter(Boolean).at(-1) || '';
 const targetName = targetNames.includes(routeName) ? routeName : null;
-const assetUrl = extension => new URL(`assets/limericksarg/${targetName}.${extension}`, import.meta.url).href;
-const targetUrl = targetName ? new URL('targets.mind', location.href).href : '';
+const configuredTitle = document.querySelector('meta[name="limerick-title"]')?.content || '';
+const configuredImage = document.querySelector('meta[name="limerick-image"]')?.content || '';
+const configuredVideo = document.querySelector('meta[name="limerick-video"]')?.content || '';
+const configuredMind = document.querySelector('meta[name="limerick-mind"]')?.content || '';
+const pageTitle = configuredTitle || (targetName ? displayName(targetName) : '');
+const imageUrl = configuredImage ? new URL(configuredImage, document.baseURI).href : (targetName ? new URL(`assets/limericksarg/${targetName}.jpg`, import.meta.url).href : '');
+const videoUrl = configuredVideo ? new URL(configuredVideo, document.baseURI).href : (targetName ? new URL(`assets/limericksarg/${targetName}.mp4`, import.meta.url).href : '');
+const targetUrl = configuredMind ? new URL(configuredMind, document.baseURI).href : (targetName ? new URL('targets.mind', location.href).href : '');
 let ar = null, active = false, starting = false, sound = false, target = null;
 
 function status(text) { $('status').textContent = text; }
 
 function configurePage() {
   if (targetName) {
-    const title = displayName(targetName);
+    const title = pageTitle;
     document.title = `${title} · El libro cobra vida`;
     $('limerick-name').textContent = title;
-    $('target-preview').src = assetUrl('jpg');
+    $('target-preview').src = imageUrl;
     $('target-preview').alt = `Ilustración del limerick ${title}.`;
     $('video-title').textContent = title;
-    $('standalone-video').src = assetUrl('mp4');
+    $('standalone-video').src = videoUrl;
     $('gallery').hidden = true;
     return;
   }
@@ -88,7 +94,7 @@ $('start').addEventListener('click', async () => {
     ar = new MindARThree({container:$('camera'), imageTargetSrc:targetUrl, maxTrack:1, uiLoading:'no', uiScanning:'no', uiError:'no', filterMinCF:0.0006, filterBeta:100, warmupTolerance:8, missTolerance:10});
     ar.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     const video = document.createElement('video');
-    video.src = assetUrl('mp4'); video.preload = 'metadata'; video.playsInline = true; video.muted = true; video.loop = false;
+    video.src = videoUrl; video.preload = 'metadata'; video.playsInline = true; video.muted = true; video.loop = false;
     video.setAttribute('webkit-playsinline', ''); Object.assign(video.style, {position:'fixed', width:'1px', height:'1px', opacity:'0', pointerEvents:'none'}); document.body.appendChild(video);
     const texture = new THREE.VideoTexture(video); texture.colorSpace = THREE.SRGBColorSpace;
     const geometry = new THREE.PlaneGeometry(1, 1);
