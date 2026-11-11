@@ -13,7 +13,7 @@ const pageTitle = configuredTitle || (targetName ? displayName(targetName) : '')
 const imageUrl = configuredImage ? new URL(configuredImage, document.baseURI).href : (targetName ? new URL(`assets/limericksarg/${targetName}.jpg`, import.meta.url).href : '');
 const videoUrl = configuredVideo ? new URL(configuredVideo, document.baseURI).href : (targetName ? new URL(`assets/limericksarg/${targetName}.mp4`, import.meta.url).href : '');
 const targetUrl = configuredMind ? new URL(configuredMind, document.baseURI).href : (targetName ? new URL('targets.mind', location.href).href : '');
-let ar = null, active = false, starting = false, sound = false, target = null;
+let ar = null, active = false, starting = false, sound = true, target = null, pendingVideo = null;
 
 function status(text) { $('status').textContent = text; }
 
@@ -65,6 +65,7 @@ function cleanup() {
     ar.renderer.dispose(); window.removeEventListener('resize', ar.resizeListener); ar.controller?.worker?.terminate();
   }
   if (target) { target.texture.dispose(); target.geometry.dispose(); target.material.dispose(); target.video.remove(); }
+  if (pendingVideo) { pendingVideo.pause(); pendingVideo.remove(); pendingVideo = null; }
   ar = null; target = null; $('camera').replaceChildren(); $('ar').hidden = true;
   document.body.classList.remove('camera-open'); $('resume').hidden = true; $('guide').style.opacity = '1';
   $('start').disabled = false; $('exit').disabled = true;
@@ -85,24 +86,30 @@ $('start').addEventListener('click', async () => {
     $('error').textContent = 'Para usar la cámara, abrí este enlace HTTPS directamente en Safari o Chrome en tu celular.';
     $('error').hidden = false; return;
   }
-  starting = true; $('start').disabled = true; sound = false;
-  $('sound').textContent = 'Activar sonido'; $('sound').setAttribute('aria-pressed', 'false');
+  starting = true; $('start').disabled = true; sound = true;
+  $('sound').textContent = 'Silenciar'; $('sound').setAttribute('aria-pressed', 'true');
   $('ar').hidden = false; document.body.classList.add('camera-open'); status('Preparando la cámara…');
+  const video = document.createElement('video');
+  let audioPriming = true;
+  video.src = videoUrl; video.preload = 'auto'; video.playsInline = true; video.muted = false; video.loop = false;
+  video.setAttribute('webkit-playsinline', ''); Object.assign(video.style, {position:'fixed', width:'1px', height:'1px', opacity:'0', pointerEvents:'none'}); document.body.appendChild(video);
+  pendingVideo = video;
+  video.play().then(() => {
+    if (audioPriming) { video.pause(); video.currentTime = 0; }
+  }).catch(() => {});
   try {
     const [THREE, {MindARThree}] = await Promise.all([import('three'), import('./vendor/mindar-image-three.prod.js')]);
     const response = await fetch(targetUrl); if (!response.ok) throw new Error('No se pudo cargar targets.mind');
     ar = new MindARThree({container:$('camera'), imageTargetSrc:targetUrl, maxTrack:1, uiLoading:'no', uiScanning:'no', uiError:'no', filterMinCF:0.0006, filterBeta:100, warmupTolerance:8, missTolerance:10});
     ar.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    const video = document.createElement('video');
-    video.src = videoUrl; video.preload = 'metadata'; video.playsInline = true; video.muted = true; video.loop = false;
-    video.setAttribute('webkit-playsinline', ''); Object.assign(video.style, {position:'fixed', width:'1px', height:'1px', opacity:'0', pointerEvents:'none'}); document.body.appendChild(video);
     const texture = new THREE.VideoTexture(video); texture.colorSpace = THREE.SRGBColorSpace;
     const geometry = new THREE.PlaneGeometry(1, 1);
     const material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, toneMapped:false});
     const displayedGroup = new THREE.Group(); displayedGroup.visible = false; displayedGroup.add(new THREE.Mesh(geometry, material)); ar.scene.add(displayedGroup);
     target = {video, texture, geometry, material, displayedGroup, poseSmoother:new PoseSmoother(THREE)};
+    pendingVideo = null;
     target.anchor = ar.addAnchor(0);
-    target.anchor.onTargetFound = () => { target.poseSmoother.reset(); video.muted = !sound; $('guide').style.opacity = '0'; status(`¡Encontramos “${displayName(targetName)}”! La historia está en marcha.`); playOverlay(); };
+    target.anchor.onTargetFound = () => { if (audioPriming) { audioPriming = false; video.pause(); video.currentTime = 0; } target.poseSmoother.reset(); video.muted = !sound; $('guide').style.opacity = '0'; status(`¡Encontramos “${displayName(targetName)}”! La historia está en marcha.`); playOverlay(); };
     target.anchor.onTargetLost = () => { displayedGroup.visible = false; target.poseSmoother.reset(); video.pause(); $('resume').hidden = true; $('guide').style.opacity = '1'; status('Volvé a enfocar la imagen del libro para continuar.'); };
     video.addEventListener('ended', () => { $('resume').hidden = true; status('El video terminó. Tocá «Desde el principio» para volver a verlo.'); });
     await ar.start(); active = true;
