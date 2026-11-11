@@ -15,3 +15,40 @@
 .video-dialog-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem 1rem; }
 .video-dialog-top strong { text-transform: capitalize; }
 .video-dialog video { display: block; width: 100%; max-height: 78vh; background: #000; }
+
+/* Páginas individuales: estética editorial del libro, sin adornos dibujados. */
+body.limerick-page{--paper:#fbf8ef;--forest:#003d30;--rust:#8d350d;--soft-green:#eef2d7;--step:#c9df86;background:radial-gradient(circle at 52% 34%,#fff 0,transparent 43%),var(--paper);color:#121b18;font-family:Arial,Helvetica,sans-serif}
+.limerick-page main{max-width:1536px;padding:24px 4.2% 30px}
+.limerick-page .top{display:flex;align-items:center;justify-content:flex-start;padding:0;border:0}
+.limerick-page .brand{gap:15px;color:var(--rust);font:700 clamp(15px,1.55vw,25px)/1 Georgia,"Times New Roman",serif;letter-spacing:1.1px}
+.limerick-page .brand svg{width:72px;height:58px;color:var(--forest);stroke-width:2.4}
+.limerick-page .brand span{padding:4px 0 13px}
+.limerick-page .badge{display:none}
+.limerick-page .hero{display:grid;grid-template-columns:minmax(430px,.98fr) minmax(520px,1.08fr);align-items:center;gap:6.3%;padding:42px 2.2% 48px}
+.limerick-page .intro{min-width:0}
+.limerick-page h1{margin:0 0 48px;color:var(--forest);font:700 clamp(48px,5.4vw,82px)/1 Georgia,"Times New Roman",serif;letter-spacing:-2.5px}
+.limerick-page h1 em{font-weight:400}
+.limerick-page #limerick-name{display:block;margin:0 0 36px;color:var(--forest);font:700 clamp(56px,6.8vw,104px)/.9 Georgia,"Times New Roman",serif;letter-spacing:-3px;text-transform:uppercase}
+.limerick-page .story-copy{max-width:620px;margin:0 0 36px;color:#131b18;font:clamp(20px,2vw,29px)/1.35 Georgia,"Times New Roman",serif}
+.limerick-page .actions{display:grid;gap:12px;max-width:650px}
+.limerick-page .primary,.limerick-page .secondary{width:100%;max-width:none;min-height:84px;margin:0;border-radius:28px;display:flex;align-items:center;font-size:clamp(19px,2vw,29px);font-weight:800}
+.limerick-page .primary{justify-content:flex-start;padding:14px 28px 14px 38px;border:0;background:linear-gradient(110deg,#00503b,var(--forest));color:#fff;box-shadow:inset 0 -3px 0 #002e25}
+.limerick-page .primary:hover{background:#075b47}
+.limerick-page .primary svg{width:55px;height:48px;margin-right:27px;stroke-width:2.2;flex:none}
+.limerick-page .primary span{margin-left:auto;color:#d8e9a3;font-size:46px;font-weight:400;line-height:.5}
+.limerick-page .secondary{justify-content:center;padding:14px 28px;color:var(--forest);border:4px solid var(--forest);background:#fffdf7}
+.limerick-page .secondary:hover{background:#f3f5df}
+.limerick-page .permission{max-width:650px;margin:9px 0 0;color:#64726c;text-align:center;font-size:12px}
+.limerick-page .drawing{align-self:center;margin:0;padding:24px 24px 18px;border:0;border-radius:2px;background:#fff;box-shadow:0 20px 38px #263d3630,0 3px 8px #263d3620;transform:rotate(-1.3deg)}
+.limerick-page .drawing:before{content:none}
+.limerick-page .drawing img{width:100%;height:auto;aspect-ratio:785/589;object-fit:cover;display:block}
+.limerick-page .drawing figcaption{display:block;margin:0;padding:18px 2% 5px;color:var(--forest);font:italic clamp(17px,1.7vw,27px)/1.2 Georgia,"Times New Roman",serif;text-align:left}
+.limerick-page .steps{display:grid;grid-template-columns:230px repeat(3,1fr);align-items:center;gap:0;padding:28px 35px;border:0;border-radius:32px;background:linear-gradient(100deg,#f1f2da,#faf9ed 42%,#eef1d4)}
+.limerick-page .steps-title{margin:0;padding-right:25px;color:var(--forest);font:700 46px/.95 Georgia,"Times New Roman",serif}
+.limerick-page .steps article{display:block;min-height:118px;position:relative;border-left:1px solid #d6a061;padding:8px 20px 5px 88px}
+.limerick-page .steps article>span{position:absolute;left:30px;top:4px;width:47px;height:47px;border-radius:50%;background:var(--step);display:grid;place-items:center;color:#172017;font-size:25px;font-weight:800}
+.limerick-page .steps h2{margin:25px 0 6px;color:#111;font-size:clamp(17px,1.5vw,23px);line-height:1.05}
+.limerick-page .steps p{max-width:280px;margin:0;color:#202b27;font-size:clamp(14px,1.25vw,19px);line-height:1.25}
+.limerick-page footer{display:none}
+@media(max-width:1100px){.limerick-page main{padding-inline:3%}.limerick-page .hero{grid-template-columns:.9fr 1.1fr;gap:4%;padding-inline:0}.limerick-page .primary,.limerick-page .secondary{min-height:68px;border-radius:22px;padding-block:10px}.limerick-page .steps{grid-template-columns:180px repeat(3,1fr);padding:22px 20px}.limerick-page .steps-title{font-size:37px}.limerick-page .steps article{padding-left:65px}.limerick-page .steps article>span{left:12px}}
+@media(max-width:780px){.limerick-page main{padding:16px 18px 25px}.limerick-page .brand{font-size:12px;gap:9px}.limerick-page .brand svg{width:48px;height:42px}.limerick-page .hero{grid-template-columns:1fr;gap:45px;padding:38px 0}.limerick-page h1{font-size:clamp(42px,12vw,62px);margin-bottom:35px}.limerick-page #limerick-name{font-size:clamp(48px,15vw,76px);margin-bottom:29px}.limerick-page .story-copy{font-size:19px;margin-bottom:29px}.limerick-page .primary,.limerick-page .secondary{min-height:64px;border-radius:19px;padding:10px 18px;font-size:18px}.limerick-page .primary svg{width:42px;margin-right:12px}.limerick-page .primary span{font-size:36px}.limerick-page .drawing{order:-1;margin:0 8px;padding:14px 14px 9px}.limerick-page .drawing figcaption{font-size:18px;padding-top:13px}.limerick-page .steps{grid-template-columns:1fr;border-radius:25px;padding:27px 22px}.limerick-page .steps-title{font-size:42px;padding:0 0 25px}.limerick-page .steps article{min-height:105px;border-left:0;border-top:1px solid #d6a061;padding:22px 0 20px 65px}.limerick-page .steps article>span{left:5px;top:25px}.limerick-page .steps h2{margin:4px 0 6px;font-size:20px}.limerick-page .steps p{max-width:none;font-size:16px}}

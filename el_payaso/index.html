@@ -19,49 +19,30 @@
         type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/addons/"}}</script>
 </head>
 
-<body>
+<body class="limerick-page">
     <main id="home"><div id="experience">
         <header class="top"><a class="brand" href="./" aria-label="Inicio"><svg viewBox="0 0 32 32" aria-hidden="true">
                     <path d="M16 8C11 4 6 5 3 6v20c5-2 9-1 13 2 4-3 8-4 13-2V6c-3-1-8-2-13 2Zm0 0v20" />
-                </svg><span>BIBLIOTECA ESCOLAR EP 4 - Un viaje al infinito</span></a><span class="badge">LIMERICKS</span></header>
+                </svg><span>BIBLIOTECA ESCOLAR «UN VIAJE AL INFINITO»</span></a><span class="badge">LIMERICKS</span></header>
         <section class="hero">
-            <div class="intro"><span class="eyebrow">HISTORIAS HECHAS POR LOS CHICOS</span>
-                <h1>El libro<br>cobra <em>vida.</em></h1><p class="eyebrow" id="limerick-name">el payaso</p>
-                <p class="lead">Un dibujo en el papel.<br>Una historia que empieza a moverse.</p>
-                <p class="explain">Activá la cámara y apuntá a una imagen del libro. El video correspondiente aparecerá sobre la hoja.
-                </p>
-                <button id="start" class="primary"><svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M8 5 9 3h6l1 2h4v15H4V5Z" />
-                        <circle cx="12" cy="12" r="4" />
-                    </svg>Activar cámara<span aria-hidden="true">↗</span></button>
-                <button id="watch-video" class="secondary" type="button">Ver video sin realidad aumentada</button>
-                <p class="permission">Te pediremos permiso para usar la cámara.</p>
+            <div class="intro">
+                <h1>El libro cobra <em>vida.</em></h1>
+                <p id="limerick-name">el payaso</p>
+                <p class="story-copy">Una historia escrita, ilustrada y animada por nuestros estudiantes mediante la técnica de <strong><em>stop motion.</em></strong></p>
+                <div class="actions">
+                    <button id="start" class="primary" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5 9 3h6l1 2h4v15H4V5Z"/><circle cx="12" cy="12" r="4"/></svg>Ver en realidad aumentada<span aria-hidden="true">→</span></button>
+                    <button id="watch-video" class="secondary" type="button">Ver el video en stop motion</button>
+                </div>
+                <p class="permission">Al continuar, se solicitará acceso a la cámara.</p>
                 <div id="error" class="error" role="alert" hidden></div>
             </div>
-            <figure class="drawing"><span class="paper-label">UNA DE LAS IMÁGENES DEL LIBRO</span><img
-                    id="target-preview" src="assets/limericksarg/el_payaso.jpg"
-                    alt="Ilustración del limerick el payaso." width="785" height="589">
-            </figure>
+            <figure class="drawing"><img id="target-preview" src="assets/limericksarg/el_payaso.jpg" alt="Ilustración del limerick el payaso." width="785" height="589"><figcaption>Del papel a la pantalla: nuestras historias cobran vida.</figcaption></figure>
         </section>
-        <section class="steps" aria-label="Cómo probarlo">
-            <article><span>1</span>
-                <div>
-                    <h2>Abrí en tu celular</h2>
-                    <p>Usá Safari o Chrome y permití la cámara.</p>
-                </div>
-            </article>
-            <article><span>2</span>
-                <div>
-                    <h2>Enfocá la hoja</h2>
-                    <p>Mostrá el dibujo completo, con buena luz y sin reflejos.</p>
-                </div>
-            </article>
-            <article><span>3</span>
-                <div>
-                    <h2>Mirá la animación</h2>
-                    <p>Mantené el celular quieto mientras aparece el video.</p>
-                </div>
-            </article>
+        <section class="steps" aria-label="Cómo funciona">
+            <h2 class="steps-title">¿Cómo<br>funciona?</h2>
+            <article><span>1</span><div><h2>Activá la cámara</h2><p>Tocá el botón y autorizá el acceso a la cámara.</p></div></article>
+            <article><span>2</span><div><h2>Enfocá la ilustración</h2><p>Apuntá a la imagen de este limerick en el libro.</p></div></article>
+            <article><span>3</span><div><h2>Descubrí la animación</h2><p>Mantené el celular enfocado y mirá cómo cobra vida.</p></div></article>
         </section>
         <footer><span>MUCHAS PÁGINAS, MUCHAS HISTORIAS.</span></footer></div>
     </main>
